@@ -10,10 +10,14 @@ import System.Info
 %default total
 
 isWindows : Bool
-isWindows = os `elem` ["win32", "mingw32", "cygwin32"]
+isWindows = os `elem` ["windows","win32", "mingw32", "cygwin32"]
 
 sep : Char
-sep = if isWindows then '\\' else '/'
+sep = '/'
+
+export
+dirSplitter : Char
+dirSplitter = if isWindows then ';' else ':'
 
 export
 dirSep : String

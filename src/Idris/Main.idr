@@ -44,12 +44,12 @@ updatePaths
          defs <- get Ctxt
          bpath <- coreLift $ getEnv "BLODWEN_PATH"
          case bpath of
-              Just path => do traverse addExtraDir (map trim (split (==':') path))
+              Just path => do traverse addExtraDir (map trim (split (== dirSplitter) path))
                               pure ()
               Nothing => pure ()
          bdata <- coreLift $ getEnv "BLODWEN_DATA"
          case bdata of
-              Just path => do traverse addDataDir (map trim (split (==':') path))
+              Just path => do traverse addDataDir (map trim (split (== dirSplitter) path))
                               pure ()
               Nothing => pure ()
          -- BLODWEN_PATH goes first so that it overrides this if there's
@@ -130,8 +130,8 @@ stMain opts
                            coreLift $ exit 1
                          Right file => do
                            setOutput (IDEMode 0 file file)
-                           replIDE {c} {u} {m}                               
-                   else do 
+                           replIDE {c} {u} {m}
+                   else do
                        iputStrLn "Welcome to Blodwen. Good luck."
                        repl {c} {u} {m}
                  else
